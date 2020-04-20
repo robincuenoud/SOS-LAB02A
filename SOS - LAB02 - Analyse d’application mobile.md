@@ -251,6 +251,9 @@ setTimeout(function () {
 
 ![image-20200420210711189](image_sos/7)
 
+Nous voulons donc bruteforce la méthode checkPin. Nous savons que le pin contient 4 digits, donc nous devrons essayer toutes les combinaisons entre 9999 et 0000. Notre idée est de commencer à 0 et incrémenter jusqu à 9999. Cependant, pour tout les nombres < 1000, nous devrons ajouter des 0 à gauche afin de remplir les 4 digit. (par exemple, nous devons tester 0007 et non juste 7). C'est ce que nous faisons en calculant le nombre de 0 manquant et en faisant les .join(0) nécessaires avant d'ajouter le bloc de la tentative de password en elle meme.
+Chacun des password ainsi créés va etre testé avec la méthode checkPin(password). En cas de succès on appelle la méthode main.chall07 avec comme argument ce password.
+
 #### [i] Bonus Remplace le texte du bouton "Check" par "Pwned" (détails de la manipulation à réaliser). (5 pts)
 
 On voit à la ligne 60 de MainActivity : 
