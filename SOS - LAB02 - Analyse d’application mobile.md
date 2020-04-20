@@ -2,21 +2,21 @@
 
 Authors : Robin Cuénoud, Florien Müllhauser
 
-## Question 1. Analyse statique 
+## Question 1. Analyse statique
 
 ### [a] Quels outils avez-vous utilisés pour « depacker » votre APK (détails de la manipulation) (2 pts)
 
 Avec `apktool` en utilisant la commande `apktool d SOS-lab.apk`
 
-On peut utiliser `jadx-gui` pour depack et decompiler le code directement aussi. 
+On peut utiliser `jadx-gui` pour depack et decompiler le code directement aussi.
 
 ### [b] Lister les fichiers contenus dans l’APK. (1 pt)
 
 ![image-20200420151214561](image_sos/1b)
 
-Dans `AndroidManifest.xml` il y’a tout ce qui est information lié à l’application, activité, permissions etc... 
+Dans `AndroidManifest.xml` il y’a tout ce qui est information lié à l’application, activité, permissions etc...
 
-Dans `smali` il y’a tout le code qui est desassemblé. 
+Dans `smali` il y’a tout le code qui est desassemblé.
 
 
 
@@ -38,4 +38,11 @@ Dans le `AndroidManifest.xml`
 </manifest>
 ```
 
-Il n’ya qu’une Activity `ch.heig.lab.MainActivity` 
+Il n’ya qu’une Activity `ch.heig.lab.MainActivity`
+
+### [d]  Quel	nom	de	« package »	utilise	l’application	« SOS-Lab.apk ». Lister	deux	manières de	récupérer	cette	information. (2 pt)
+
+> Une fois que l'on a désassemblé l'APK avec `apktool d SOS-Lab.apk`, le fichier `AndroidManifest.xml` apparait. On ouvre ce fichier et dedans il renseign le package entre autre `package="ch.heig.lab"` .
+
+
+> Une autre façon que de regarder dans le XML, est d'aller dans le dossier `smali` ensuite on a l'arborescence des fichiers utiliser. Le com/google est un import, mais par contre on peut deviner en suivant l'arborescence que `ch/heig/lab` est le nom de package, vu les fichiers qu'il contient
