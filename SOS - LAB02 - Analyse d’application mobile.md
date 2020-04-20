@@ -49,15 +49,15 @@ Il n’ya qu’une Activity `ch.heig.lab.MainActivity`
 
 #### [e] Lister les permissions requises par l’application pour se lancer sur un appareil. (1 pt)
 
-Dans le `AndroidManifest.xml` il n’y a pas de balise `<uses-permission …. />` donc aucune. 
+Dans le `AndroidManifest.xml` il n’y a pas de balise `<uses-permission …. />` donc aucune.
 
 #### [f] Qu’utilise-t-on pour désassembler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
-apktool transforme le code assembleur en smali (il désassemble le fichier). On obtient du smali. 
+apktool transforme le code assembleur de classes.dex en smali (il désassemble le fichier). On obtient donc à partir de l'APK ou de classes.dex un dossier smali, qui contient toutes les classes en .smali, cela reste en bas niveau (mais plus haut qu'assembleur). on fait donc `apktool d SOS-Lab.apk`, et ça va déssassembler le code de classes.dex qui était dedans. 
 
 #### [g] Qu’utilise-t-on pour décompiler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
-jadx-gui décompile le fichier .dex et fait des fichier java. 
+jadx (ou jadx-gui) quant à lui, permet de décompiler le fichier classes.dex et fait apparaitre directement les fichier java. On obtient donc le code haut niveau avec des features pour rechercher, aller aux jumps etc. On fait donc la commande `jadx -d out classes.dex`, out le nom de l'output directory
 
 ## Question 2. Reverse Engineering (15 pts)
 
