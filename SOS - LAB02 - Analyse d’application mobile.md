@@ -174,13 +174,58 @@ Le code overload juste l’implémentation de la méthode getValue de chall0.
 
 #### [c] Challenge 2 : Exécuter la méthode chall02() de la classe MainActivity (détailler la manipulation pour obtenir le résultat final). (3 pts)
 
+Ici aussi facile,
+
+il suffit de rejouter ce code dans celui d’avant : 
+
+```javascript
+  var main;
+        Java.choose('ch.heig.lab.MainActivity', {onMatch: function(instance) 
+        {
+            main = instance;
+        }
+        ,onComplete: function() {}}
+        );
+        main.chall02();
+```
+
+![image-20200420182540954](image_sos/chall02)
+
 #### [d] Challenge 3 : Faire en sorte que la méthode chall03() renvoie toujours « vrai » (détailler la manipulation pour obtenir le résultat final). (2 pts)
+
+Ici comme pour le chall1 on overload la méthode de la class MainActivity. 
+
+Le code correspondant (avec la même variable main que le challenge d’avant).
+
+```javascript
+ main.chall03.overload().implementation = function () {
+ return true;
+ }
+```
+
+![image-20200420183544833](image_sos/3)
 
 #### [e] Challenge 4 : Envoyer "HEIG" à la méthode chall03() (détailler la manipulation pour obtenir le résultat final). (2 pts)
 
+il y’a une faute dans la question (c’est chall04 pas chall03). 
+
+Comme le chall2 on doit récuperer une instance donc on peut executer au même endroit grâce à cette ligne :
+
+```java
+main.chall04("HEIG");
+```
+
+![image-20200420183929669](image_sos/chall4)
+
 #### [f] Challenge 5 : Envoyer « toujours » "SOS20" à la méthode chall05() de la classe MainActivity (détailler la manipulation pour obtenir le résultat final). (3 pts)
 
+Ici il faut overload la méthode, la difficutlé est qu’il ne faut pas oublier le type du parametre (java.lang.String) et on peut rappeler la méthode pas overload grâce à this.chall05(str); ainsi on n’a pas besoin de récrire la méthode mais on peut juste modifier ses paramètres. 
+
+![image-20200420190057154](image_sos/chall05)
+
 #### [g] Challenge 6 : Exécutez la méthode chall06() avec la bonne valeur pendant 10 secondes (détailler la manipulation pour obtenir le résultat final). (5 pts)
+
+
 
 #### [h] Challenge 7 : Brute force la méthode checkPin(), puis confirme ta valeur avec l’appel à la méthode chall07() (détailler la manipulation pour obtenir le résultat final). (5 pts)
 
