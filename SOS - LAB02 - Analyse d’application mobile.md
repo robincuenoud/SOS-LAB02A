@@ -143,8 +143,11 @@ Pour modifier dans le smallI j’ai enlevé les appels à droidDetect
 Une fois le code modifié dans la classe de detection (on modifie le fichier smali), on va utiliser `apktool b <directory_modifiee> -o <new_APK_name>` afin de build notre APK modifié. Une fois modifié on doit signer ce nouvel APK avec le debug keystore du android SDK, pour cela on utilise jarsigner. On fait la commande `jarsigner-verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore
 <Android_SDK_path>/debug.keystore -storepass android <new_APK_name> androiddebugkey`. Voilà on a notre APK signé, on peut maintenant l'installer en utilisant la commande `adb install <new_APK_file>`
 
-
 #### [b] Challenge 1 : Changer la valeur de la variable 'value' de la classe chall01 à 1 (détailler la manipulation pour obtenir le résultat final). (1 pts)
+
+On lance `frida-ps -U` on voit ch.heig.lab (le nom du package) , donc on peut commencer à debug remotely ce process avec frida grâce à `frida -U ch.heig.lab` 
+
+
 
 #### [c] Challenge 2 : Exécuter la méthode chall02() de la classe MainActivity (détailler la manipulation pour obtenir le résultat final). (3 pts)
 
