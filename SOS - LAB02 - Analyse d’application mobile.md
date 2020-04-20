@@ -108,7 +108,29 @@ Comme la méthode  `a()` elle essaie d’écrire des fichiers à endroits interd
 
 #### [d] Expliquer en détail l’utilité de la méthode « d » de la classe « detection ». (3 pts)
 
+```java
+public static boolean d(Context context) {
+     return (context.getApplicationContext().getApplicationInfo().flags & 2) != 0;
+}
+```
+
+L’application verifie que le flag 2 est activé, le flag 2 est celui la : https://developer.android.com/reference/android/content/pm/ApplicationInfo#FLAG_DEBUGGABLE le flag debug, donc elle vérifie que le débug est activé ou pas. 
+
 #### [e] Expliquer d’une manière précise ce que vous allez faire pour contourner ce mécanisme de protection de l’application. (code à modifier dans l’application) (3 pts)
+
+On va juste modifier cette classe pour que toutes les méthodes renvoient faux, sinon `onCreate` de `MainActivity`  va appeler `droidDetect` qui va faire quitter l’application. On peut sinon aussi supprimer les lignes de test. (Lignes 2-7).
+
+```java
+public void onCreate(Bundle bundle) {
+        if (detection.a() || detection.b() || detection.c()) {
+            droiDetect("Root detected!");
+        }
+        if (detection.d(getApplicationContext())) {
+            droiDetect("App is debuggable!");
+        }
+```
+
+
 
 ## Question 3. Analyse Dynamique (23 pts)
 
