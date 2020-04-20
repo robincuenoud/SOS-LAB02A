@@ -156,21 +156,24 @@ Comme snippet javascript j’ai écrit :
 
 ```javascript
 Java.perform(function () {
-  console.log("Starting hooks chall0...");
-  var activity  = Java.use("ch.heig.lab.chall01");
-  activity.getValue.overload().implementation = function() {
-  return 1;
-  }
-  console.log("Hooks installed.");
+var activity  = Java.use("ch.heig.lab.chall01");
+	activity.value.value = 1;
+	}); 
 });
 
 ```
 
-Le code overload juste l’implémentation de la méthode getValue de chall0.
-
-
+Le code attribue juste la value du champs value de la classe chall01 à 1. 
 
 ![image-20200420181345665](image_sos/chall0)
+
+Note: j’avais mal lu la consigne sur le screenshot et j’ai cru qu’il fallait overload la méthode, voila pourquoi le code ne correspond pas.
+
+##### Note pour la suite des challenge : 
+
+le code se trouve dans un
+
+ ` Java.perform(function() { // code ici })`
 
 #### [c] Challenge 2 : Exécuter la méthode chall02() de la classe MainActivity (détailler la manipulation pour obtenir le résultat final). (3 pts)
 
@@ -273,5 +276,24 @@ Sauf qu'on arrive à une erreur :
 `Only the original thread that created a view hierarchy can touch its views.`
 
 On doit utiliser runOnUiThread() (https://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi),
+
+Néamoins, cela fonctionne quand même avec ce code là : 
+
+```javascript
+var checkId = 2131230769;
+var button = Java.use('android.widget.Button');
+var checkid = main.findViewById(checkId);
+var check = Java.cast(checkid.$handle, button);
+var string = Java.use('java.lang.String');
+check.setText(string.$new("Pwned"));
+```
+
+Cela fait juste planter le script après coup. 
+
+Si l’on veut faire de la bonne façon il faudrait faire quelque chose de semblable à ce qui est presenté ici : 
+
+https://www.securify.nl/blog/SFY20191103/android-frida-hooking_-disabling-flag_secure.html
+
+
 
 ![image-20200420222526731](image_sos/bonus)
