@@ -273,3 +273,5 @@ Sauf qu'on arrive à une erreur :
 `Only the original thread that created a view hierarchy can touch its views.`
 
 On doit utiliser runOnUiThread() (https://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi),
+
+![image-20200420222526731](image_sos/bonus)
