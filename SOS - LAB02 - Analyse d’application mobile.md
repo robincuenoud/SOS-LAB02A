@@ -247,6 +247,6 @@ setTimeout(function () {
 
 #### [h] Challenge 7 : Brute force la méthode checkPin(), puis confirme ta valeur avec l’appel à la méthode chall07() (détailler la manipulation pour obtenir le résultat final). (5 pts)
 
-
+![image-20200420210711189](image_sos/7)
 
 #### [i] Bonus Remplace le texte du bouton "Check" par "Pwned" (détails de la manipulation à réaliser). (5 pts)
