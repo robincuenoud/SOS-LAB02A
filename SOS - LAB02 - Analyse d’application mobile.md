@@ -262,5 +262,14 @@ On voit à la ligne 60 de MainActivity :
 ((Button) findViewById(R.id.check))
 ```
 
+Ainsi que dans R à la ligne 1117 : `public static final int check = 2131230769;`
+
+Donc on peut utiliser cela pour retrouver le bouton.
+
 Cela va nous permettre de recuperer l’id du bouton check et ainsi modifier son text.
 
+Sauf que on arrive à une erreur : 
+
+`Only the original thread that created a view hierarchy can touch its views.`
+
+On doit utiliser runOnUiThread() (https://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi), 
