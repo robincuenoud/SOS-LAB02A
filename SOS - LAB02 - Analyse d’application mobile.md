@@ -42,22 +42,22 @@ Il n’ya qu’une Activity `ch.heig.lab.MainActivity`
 
 #### [d]  Quel	nom	de	« package »	utilise	l’application	« SOS-Lab.apk ». Lister	deux	manières de	récupérer	cette	information. (2 pt)
 
-Une fois que l'on a désassemblé l'APK avec `apktool d SOS-Lab.apk`, le fichier `AndroidManifest.xml` apparait. On ouvre ce fichier et dedans il renseign le package entre autre `package="ch.heig.lab"` .
+Une fois que l'on a désassemblé l'APK avec `apktool d SOS-Lab.apk`, le fichier `AndroidManifest.xml` apparait. On ouvre ce fichier et dedans il renseigne le package entre autre `package="ch.heig.lab"`.
 
 
-Une autre façon que de regarder dans le XML, est d'aller dans le dossier `smali` ensuite on a l'arborescence des fichiers utiliser. Le com/google est un import, mais par contre on peut deviner en suivant l'arborescence que `ch/heig/lab` est le nom de package, vu les fichiers qu'il contient
+Une autre façon que de regarder dans le XML, est d'aller dans le dossier `smali` ensuite on a l'arborescence des fichiers utiliser. Le com/google est un import, mais par contre on peut deviner en suivant l'arborescence que `ch/heig/lab` est le nom de package, vu les fichiers qu'il contient.
 
 #### [e] Lister les permissions requises par l’application pour se lancer sur un appareil. (1 pt)
 
-Dans le `AndroidManifest.xml` il n’y a pas de balise `<uses-permission …. />` donc aucune.
+Dans le `AndroidManifest.xml` il n’y a pas de balise `<uses-permission …. />` donc aucune permission n'est requise.
 
 #### [f] Qu’utilise-t-on pour désassembler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
-apktool transforme le code assembleur de classes.dex en smali (il désassemble le fichier). On obtient donc à partir de l'APK ou de classes.dex un dossier smali, qui contient toutes les classes en .smali, cela reste en bas niveau (mais plus haut qu'assembleur). on fait donc `apktool d SOS-Lab.apk`, et ça va déssassembler le code de classes.dex qui était dedans.
+apktool, avec l'option d, transforme le code assembleur de classes.dex en smali (il désassemble le fichier). On obtient donc à partir de l'APK ou de classes.dex un dossier smali, qui contient toutes les classes en .smali, cela reste en bas niveau (mais plus haut qu'assembleur). on fait donc `apktool d SOS-Lab.apk`, et ça va déssassembler le code de classes.dex qui était dedans.
 
 #### [g] Qu’utilise-t-on pour décompiler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
-jadx (ou jadx-gui) quant à lui, permet de décompiler le fichier classes.dex et fait apparaitre directement les fichier java. On obtient donc le code haut niveau avec des features pour rechercher, aller aux jumps etc. On fait donc la commande `jadx -d out classes.dex`, out le nom de l'output directory
+jadx (ou jadx-gui) quant à lui, permet de décompiler le fichier classes.dex et fait apparaitre directement les fichier java. On obtient donc le code haut niveau de manière très lisible, avec des features pour rechercher, aller aux jumps etc. On fait donc la commande `jadx -d out classes.dex`, out le nom de l'output directory
 
 ## Question 2. Reverse Engineering (15 pts)
 
@@ -76,7 +76,7 @@ public static boolean a() {
 
 Elle récupère les variables d’environnement (l.2) et pour chaque variable (car `.split(“:”)` sépare chaque variable du PATH), elle essaie de créer un fichier portant le nom de la variable d’environnement. Si une de ces créations de fichiers réussit elle retourne vrai sinon faux.
 
-Cette fonction sert à verifier si le device est root. En effet, si elle peut écrire des fichier à ces endroits, c’est une bonne indication qu’elle est root.  
+Cette fonction sert à verifier si le device est root. En effet, si elle peut écrire des fichier à ces endroits, c’est une bonne indication qu’elle est root. Il est important pour l'application que le user ne soit pas root, en effet l'utilisateur n'est pas en train de développer l'application, il doit l'utiliser sans la modifier pour éviter des comportement inattendus ou des modifictaions non licites provoquées par root.
 
 #### [b] Expliquer en détail l’utilité de la méthode « b » de la classe « detection ». (3 pts)
 
@@ -142,7 +142,7 @@ Pour modifier dans le smallI j’ai enlevé les appels à droidDetect
 
 Une fois le code modifié dans la classe de detection (on modifie le fichier smali), on va utiliser `apktool b <directory_modifie> -o SOS-test_lab.apk` afin de build notre APK modifié. Une fois modifié on doit signer ce nouvel APK avec le debug keystore du android SDK, pour cela on crée une clé et on signe.
 
-Pour générer, on utilise keytool `keytool -genkey -v -keystore debug.jks -keyalg RSA -keysize 2048 -validity 10000 -alias android-debugkey` .
+Pour générer, on utilise keytool `keytool -genkey -v -keystore debug.jks -keyalg RSA -keysize 2048 -validity 10000 -alias android-debugkey`.
 
 Pour signer on utilise apksigner `apksigner sign --ks debug.jks --out SOS-test-patch.apk SOS-test_lab.apk`
 
@@ -256,7 +256,7 @@ Chacun des password ainsi créés va etre testé avec la méthode checkPin(passw
 
 #### [i] Bonus Remplace le texte du bouton "Check" par "Pwned" (détails de la manipulation à réaliser). (5 pts)
 
-On voit à la ligne 60 de MainActivity : 
+On voit à la ligne 60 de MainActivity :
 
 ```java
 ((Button) findViewById(R.id.check))
@@ -268,8 +268,8 @@ Donc on peut utiliser cela pour retrouver le bouton.
 
 Cela va nous permettre de recuperer l’id du bouton check et ainsi modifier son text.
 
-Sauf que on arrive à une erreur : 
+Sauf qu'on arrive à une erreur :
 
 `Only the original thread that created a view hierarchy can touch its views.`
 
-On doit utiliser runOnUiThread() (https://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi), 
+On doit utiliser runOnUiThread() (https://stackoverflow.com/questions/5161951/android-only-the-original-thread-that-created-a-view-hierarchy-can-touch-its-vi),
