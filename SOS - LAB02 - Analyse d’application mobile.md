@@ -6,7 +6,7 @@ Authors : Robin Cuénoud, Florian Mülhauser
 
 #### [a] Quels outils avez-vous utilisés pour « depacker » votre APK (détails de la manipulation) (2 pts)
 
-Avec `apktool` en utilisant la commande `apktool d SOS-lab.apk`
+Avec `apktool` en utilisant la commande `apktool d SOS-lab.apk`, cela va permettre de dépacker en déssassemblant notre APK. (Une alternative, qu'on trouve moins intéressante est de copier ce fichier en le renommant .zip, puis ensuite on le dépack en fasiant un unzip de ce dossier. Cela va le dépacker en partie, mais certains fichiers seront mal interprétées)
 
 On peut utiliser `jadx-gui` pour depack et decompiler le code directement aussi.
 
@@ -16,7 +16,7 @@ On peut utiliser `jadx-gui` pour depack et decompiler le code directement aussi.
 
 Dans `AndroidManifest.xml` il y’a tout ce qui est information lié à l’application, activité, permissions etc...
 
-Dans `smali` il y’a tout le code qui est desassemblé.
+Dans `smali` il y’a tout le code, provennant de classes.dex, qui est maintenant desassemblé.
 
 
 
@@ -42,10 +42,10 @@ Il n’ya qu’une Activity `ch.heig.lab.MainActivity`
 
 #### [d]  Quel	nom	de	« package »	utilise	l’application	« SOS-Lab.apk ». Lister	deux	manières de	récupérer	cette	information. (2 pt)
 
-> Une fois que l'on a désassemblé l'APK avec `apktool d SOS-Lab.apk`, le fichier `AndroidManifest.xml` apparait. On ouvre ce fichier et dedans il renseign le package entre autre `package="ch.heig.lab"` .
+Une fois que l'on a désassemblé l'APK avec `apktool d SOS-Lab.apk`, le fichier `AndroidManifest.xml` apparait. On ouvre ce fichier et dedans il renseign le package entre autre `package="ch.heig.lab"` .
 
 
-> Une autre façon que de regarder dans le XML, est d'aller dans le dossier `smali` ensuite on a l'arborescence des fichiers utiliser. Le com/google est un import, mais par contre on peut deviner en suivant l'arborescence que `ch/heig/lab` est le nom de package, vu les fichiers qu'il contient
+Une autre façon que de regarder dans le XML, est d'aller dans le dossier `smali` ensuite on a l'arborescence des fichiers utiliser. Le com/google est un import, mais par contre on peut deviner en suivant l'arborescence que `ch/heig/lab` est le nom de package, vu les fichiers qu'il contient
 
 #### [e] Lister les permissions requises par l’application pour se lancer sur un appareil. (1 pt)
 
@@ -74,9 +74,9 @@ public static boolean a() {
     }
 ```
 
-Elle récupère les variables d’environnement (l.2) et pour chaque variable (`.split(“:”)` sépare chaque variable du PATH) elle essaie de créer un fichier portant le nom de la variable d’environnement. Si une de ces créations de fichiers réussit elle retourne vrai sinon faux.
+Elle récupère les variables d’environnement (l.2) et pour chaque variable (car `.split(“:”)` sépare chaque variable du PATH), elle essaie de créer un fichier portant le nom de la variable d’environnement. Si une de ces créations de fichiers réussit elle retourne vrai sinon faux.
 
-Cette fonction sert à verifier si le device est root, si elle peut écrire des fichier a ces endroits c’est une bonne  indication qu’elle est root.  
+Cette fonction sert à verifier si le device est root. En effet, si elle peut écrire des fichier à ces endroits, c’est une bonne indication qu’elle est root.  
 
 #### [b] Expliquer en détail l’utilité de la méthode « b » de la classe « detection ». (3 pts)
 
@@ -89,7 +89,7 @@ public static boolean b() {
 
 FROM : https://stackoverflow.com/questions/18808705/android-root-detection-using-build-tags
 
-Verifie si les tags de Build contient test-keys (si il arrive a les récuperer). Cela permet de voir si le kernel est signé par un developpeur officiel. Cela permet de verifier que le device n’est pas root.
+Vérifie si les tags de Build contient test-keys (si il arrive à les récuperer). Cela permet de voir si le kernel est signé par un developpeur officiel. Cela permet de verifier que le device n’est pas root.
 
 #### [c] Expliquer en détail l’utilité de la méthode « c » de la classe « detection ». (3 pts)
 
@@ -104,7 +104,7 @@ public static boolean c() {
     }
 ```
 
-Comme la méthode  `a()` elle essaie d’écrire des fichiers à endroits interdit sans être root pour vérifier si le device est root ou pas. C’est encore une façon de vérifier cela.
+Comme la méthode  `a()`, elle essaie d’écrire des fichiers à des endroits interdit sans être root, afin pour vérifier si le device est root ou non. C’est encore une façon de vérifier cela.
 
 #### [d] Expliquer en détail l’utilité de la méthode « d » de la classe « detection ». (3 pts)
 
@@ -146,13 +146,13 @@ Pour générer, on utilise keytool `keytool -genkey -v -keystore debug.jks -keya
 
 Pour signer on utilise apksigner `apksigner sign --ks debug.jks --out SOS-test-patch.apk SOS-test_lab.apk`
 
-Voilà on a notre APK signé, on peut maintenant l'installer en utilisant la commande `adb install SOS-test_lab.apk`.
+Voilà on a notre APK signé, on peut maintenant l'installer en utilisant la commande `adb install SOS-test_lab.apk`.'
 
 #### [b] Challenge 1 : Changer la valeur de la variable 'value' de la classe chall01 à 1 (détailler la manipulation pour obtenir le résultat final). (1 pts)
 
-On lance `frida-ps -U` on voit ch.heig.lab (le nom du package) , donc on peut commencer à debug remotely ce process avec frida grâce à `frida -U ch.heig.lab` 
+On lance `frida-ps -U` on voit ch.heig.lab (le nom du package) , donc on peut commencer à debug remotely ce process avec frida grâce à `frida -U ch.heig.lab`
 
-Comme snippet javascript j’ai écrit : 
+Comme snippet javascript j’ai écrit :
 
 ```javascript
 Java.perform(function () {
@@ -166,7 +166,7 @@ Java.perform(function () {
 
 ```
 
-Le code overload juste l’implémentation de la méthode getValue de chall0. 
+Le code overload juste l’implémentation de la méthode getValue de chall0.
 
 
 
@@ -176,11 +176,11 @@ Le code overload juste l’implémentation de la méthode getValue de chall0.
 
 Ici aussi facile,
 
-il suffit de rejouter ce code dans celui d’avant : 
+il suffit de rejouter ce code dans celui d’avant :
 
 ```javascript
   var main;
-        Java.choose('ch.heig.lab.MainActivity', {onMatch: function(instance) 
+        Java.choose('ch.heig.lab.MainActivity', {onMatch: function(instance)
         {
             main = instance;
         }
@@ -193,7 +193,7 @@ il suffit de rejouter ce code dans celui d’avant :
 
 #### [d] Challenge 3 : Faire en sorte que la méthode chall03() renvoie toujours « vrai » (détailler la manipulation pour obtenir le résultat final). (2 pts)
 
-Ici comme pour le chall1 on overload la méthode de la class MainActivity. 
+Ici comme pour le chall1 on overload la méthode de la class MainActivity.
 
 Le code correspondant (avec la même variable main que le challenge d’avant).
 
@@ -207,7 +207,7 @@ Le code correspondant (avec la même variable main que le challenge d’avant).
 
 #### [e] Challenge 4 : Envoyer "HEIG" à la méthode chall03() (détailler la manipulation pour obtenir le résultat final). (2 pts)
 
-il y’a une faute dans la question (c’est chall04 pas chall03). 
+il y’a une faute dans la question (c’est chall04 pas chall03).
 
 Comme le chall2 on doit récuperer une instance donc on peut executer au même endroit grâce à cette ligne :
 
@@ -219,13 +219,13 @@ main.chall04("HEIG");
 
 #### [f] Challenge 5 : Envoyer « toujours » "SOS20" à la méthode chall05() de la classe MainActivity (détailler la manipulation pour obtenir le résultat final). (3 pts)
 
-Ici il faut overload la méthode, la difficutlé est qu’il ne faut pas oublier le type du parametre (java.lang.String) et on peut rappeler la méthode pas overload grâce à this.chall05(str); ainsi on n’a pas besoin de récrire la méthode mais on peut juste modifier ses paramètres. 
+Ici il faut overload la méthode, la difficutlé est qu’il ne faut pas oublier le type du parametre (java.lang.String) et on peut rappeler la méthode pas overload grâce à this.chall05(str); ainsi on n’a pas besoin de récrire la méthode mais on peut juste modifier ses paramètres.
 
 ![image-20200420190057154](image_sos/chall05)
 
 #### [g] Challenge 6 : Exécutez la méthode chall06() avec la bonne valeur pendant 10 secondes (détailler la manipulation pour obtenir le résultat final). (5 pts)
 
-Ici pour solve ce challenge on attends dix secondes puis on envoie à confirmchall6 la valeur chall06 de la classe chall06, setTimeout sert à faire cela. 
+Ici pour solve ce challenge on attends dix secondes puis on envoie à confirmchall6 la valeur chall06 de la classe chall06, setTimeout sert à faire cela.
 
 ```javascript
 setTimeout(function () {
