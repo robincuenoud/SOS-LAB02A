@@ -130,7 +130,11 @@ public void onCreate(Bundle bundle) {
         }
 ```
 
+Ou sinon on peut enlever l’appel à `System.exit(0)` dans droidDetect.
 
+Pour modifier dans le smallI j’ai enlevé les appels à droidDetect
+
+![image-20200420164920230](image_sos/31)
 
 ## Question 3. Analyse Dynamique (23 pts)
 
