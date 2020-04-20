@@ -63,7 +63,24 @@ jadx (ou jadx-gui) quant à lui, permet de décompiler le fichier classes.dex et
 
 #### [a] Expliquer en détail l’utilité de la méthode « a » de la classe Java « detection ». (3 pts)
 
+```java
+public static boolean a() {
+        for (String file : System.getenv("PATH").split(":")) {
+            if (new File(file, "su").exists()) {
+                return true;
+            }
+        }
+        return false;
+    }
+```
+
+Elle récupère les variables d’environnement (l.2) et pour chaque variable (`.split(“:”)` sépare chaque variable du PATH) elle essaie de créer un fichier portant le nom de la variable d’environnement. Si une de ces créations de fichiers réussit elle retourne vrai sinon faux. 
+
+Cette fonction sert à verifier si le device est root, si elle peut écrire des fichier a ces endroits c’est une bonne  indication qu’elle est root.  
+
 #### [b] Expliquer en détail l’utilité de la méthode « b » de la classe « detection ». (3 pts)
+
+
 
 #### [c] Expliquer en détail l’utilité de la méthode « c » de la classe « detection ». (3 pts)
 
