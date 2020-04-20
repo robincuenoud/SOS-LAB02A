@@ -49,7 +49,11 @@ Il n’ya qu’une Activity `ch.heig.lab.MainActivity`
 
 #### [e] Lister les permissions requises par l’application pour se lancer sur un appareil. (1 pt)
 
+Dans le `AndroidManifest.xml` il n’y a pas de balise `<uses-permission …. />` donc aucune. 
+
 #### [f] Qu’utilise-t-on pour désassembler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
+
+Avec jadx-gui, cela désassemble les fichiers .dex, on obtient toutes les classes décompilées, on a aussi le code source décompilé.
 
 #### [g] Qu’utilise-t-on pour décompiler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
