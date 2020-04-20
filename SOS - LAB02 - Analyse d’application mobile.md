@@ -53,9 +53,11 @@ Dans le `AndroidManifest.xml` il n’y a pas de balise `<uses-permission …. />
 
 #### [f] Qu’utilise-t-on pour désassembler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
-Avec jadx-gui, cela désassemble les fichiers .dex, on obtient toutes les classes décompilées, on a aussi le code source décompilé.
+apktool transforme le code assembleur en smali (il désassemble le fichier). On obtient du smali. 
 
 #### [g] Qu’utilise-t-on pour décompiler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
+
+jadx-gui décompile le fichier .dex et fait des fichier java. 
 
 ## Question 2. Reverse Engineering (15 pts)
 
