@@ -225,8 +225,28 @@ Ici il faut overload la méthode, la difficutlé est qu’il ne faut pas oublier
 
 #### [g] Challenge 6 : Exécutez la méthode chall06() avec la bonne valeur pendant 10 secondes (détailler la manipulation pour obtenir le résultat final). (5 pts)
 
+Ici pour solve ce challenge on attends dix secondes puis on envoie à confirmchall6 la valeur chall06 de la classe chall06, setTimeout sert à faire cela. 
 
+```javascript
+setTimeout(function () {
+		Java.perform(function () {
+			var chall06 = Java.use('ch.heig.lab.chall06');
+			chall06.addChall06.overload('int').implementation = function (v) {
+				Java.choose('ch.heig.lab.MainActivity', {
+		            onMatch: function(instance) {
+						instance.chall06(chall06.chall06.value);
+		            },
+		            onComplete: function() {}
+		        });
+			}
+		})
+	}, 10000);
+```
+
+![image-20200420193148128](image_sos/chall06)
 
 #### [h] Challenge 7 : Brute force la méthode checkPin(), puis confirme ta valeur avec l’appel à la méthode chall07() (détailler la manipulation pour obtenir le résultat final). (5 pts)
+
+
 
 #### [i] Bonus Remplace le texte du bouton "Check" par "Pwned" (détails de la manipulation à réaliser). (5 pts)
