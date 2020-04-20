@@ -80,9 +80,31 @@ Cette fonction sert à verifier si le device est root, si elle peut écrire des 
 
 #### [b] Expliquer en détail l’utilité de la méthode « b » de la classe « detection ». (3 pts)
 
+```java
+public static boolean b() {
+        String str = Build.TAGS;
+        return str != null && str.contains("test-keys");
+    }
+```
 
+FROM : https://stackoverflow.com/questions/18808705/android-root-detection-using-build-tags
+
+Verifie si les tags de Build contient test-keys (si il arrive a les récuperer). Cela permet de voir si le kernel est signé par un developpeur officiel. Cela permet de verifier que le device n’est pas root. 
 
 #### [c] Expliquer en détail l’utilité de la méthode « c » de la classe « detection ». (3 pts)
+
+```java
+public static boolean c() {
+        for (String file : new String[]{"/system/app/Superuser.apk", "/system/xbin/daemonsu", "/system/etc/init.d/99SuperSUDaemon", "/system/bin/.ext/.su", "/system/etc/.has_su_daemon", "/system/etc/.installed_su_daemon", "/dev/com.koushikdutta.superuser.daemon/"}) {
+            if (new File(file).exists()) {
+                return true;
+            }
+        }
+        return false;
+    }
+```
+
+Comme la méthode  `a()` elle essaie d’écrire des fichiers à endroits interdit sans être root pour vérifier si le device est root ou pas. C’est encore une façon de vérifier cela. 
 
 #### [d] Expliquer en détail l’utilité de la méthode « d » de la classe « detection ». (3 pts)
 
