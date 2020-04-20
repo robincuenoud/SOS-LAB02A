@@ -140,8 +140,13 @@ Pour modifier dans le smallI j’ai enlevé les appels à droidDetect
 
 #### [a] Installer l’application « SOS-Lab.apk » sur l’émulateur (détails de la manipulation) (2 pt)
 
-Une fois le code modifié dans la classe de detection (on modifie le fichier smali), on va utiliser `apktool b <directory_modifiee> -o <new_APK_name>` afin de build notre APK modifié. Une fois modifié on doit signer ce nouvel APK avec le debug keystore du android SDK, pour cela on utilise jarsigner. On fait la commande `jarsigner-verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore
-<Android_SDK_path>/debug.keystore -storepass android <new_APK_name> androiddebugkey`. Voilà on a notre APK signé, on peut maintenant l'installer en utilisant la commande `adb install <new_APK_file>`
+Une fois le code modifié dans la classe de detection (on modifie le fichier smali), on va utiliser `apktool b <directory_modifie> -o SOS-test_lab.apk` afin de build notre APK modifié. Une fois modifié on doit signer ce nouvel APK avec le debug keystore du android SDK, pour cela on crée une clé et on signe.
+
+Pour générer, on utilise keytool `keytool -genkey -v -keystore debug.jks -keyalg RSA -keysize 2048 -validity 10000 -alias android-debugkey` .
+
+Pour signer on utilise apksigner `apksigner sign --ks debug.jks --out SOS-test-patch.apk SOS-test_lab.apk`
+
+Voilà on a notre APK signé, on peut maintenant l'installer en utilisant la commande `adb install SOS-test_lab.apk`.
 
 #### [b] Challenge 1 : Changer la valeur de la variable 'value' de la classe chall01 à 1 (détailler la manipulation pour obtenir le résultat final). (1 pts)
 
