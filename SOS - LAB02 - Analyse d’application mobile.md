@@ -1,6 +1,6 @@
 # SOS - LAB02 - Analyse d’application mobile
 
-Authors : Robin Cuénoud, Florien Müllhauser
+Authors : Robin Cuénoud, Florian Mülhauser
 
 ## Question 1. Analyse statique
 
@@ -53,7 +53,7 @@ Dans le `AndroidManifest.xml` il n’y a pas de balise `<uses-permission …. />
 
 #### [f] Qu’utilise-t-on pour désassembler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
-apktool transforme le code assembleur de classes.dex en smali (il désassemble le fichier). On obtient donc à partir de l'APK ou de classes.dex un dossier smali, qui contient toutes les classes en .smali, cela reste en bas niveau (mais plus haut qu'assembleur). on fait donc `apktool d SOS-Lab.apk`, et ça va déssassembler le code de classes.dex qui était dedans. 
+apktool transforme le code assembleur de classes.dex en smali (il désassemble le fichier). On obtient donc à partir de l'APK ou de classes.dex un dossier smali, qui contient toutes les classes en .smali, cela reste en bas niveau (mais plus haut qu'assembleur). on fait donc `apktool d SOS-Lab.apk`, et ça va déssassembler le code de classes.dex qui était dedans.
 
 #### [g] Qu’utilise-t-on pour décompiler le fichier « classes.dex ». Qu’obtient-on après cette manipulation (détails de la manipulation) (3 pt)
 
@@ -74,7 +74,7 @@ public static boolean a() {
     }
 ```
 
-Elle récupère les variables d’environnement (l.2) et pour chaque variable (`.split(“:”)` sépare chaque variable du PATH) elle essaie de créer un fichier portant le nom de la variable d’environnement. Si une de ces créations de fichiers réussit elle retourne vrai sinon faux. 
+Elle récupère les variables d’environnement (l.2) et pour chaque variable (`.split(“:”)` sépare chaque variable du PATH) elle essaie de créer un fichier portant le nom de la variable d’environnement. Si une de ces créations de fichiers réussit elle retourne vrai sinon faux.
 
 Cette fonction sert à verifier si le device est root, si elle peut écrire des fichier a ces endroits c’est une bonne  indication qu’elle est root.  
 
@@ -89,7 +89,7 @@ public static boolean b() {
 
 FROM : https://stackoverflow.com/questions/18808705/android-root-detection-using-build-tags
 
-Verifie si les tags de Build contient test-keys (si il arrive a les récuperer). Cela permet de voir si le kernel est signé par un developpeur officiel. Cela permet de verifier que le device n’est pas root. 
+Verifie si les tags de Build contient test-keys (si il arrive a les récuperer). Cela permet de voir si le kernel est signé par un developpeur officiel. Cela permet de verifier que le device n’est pas root.
 
 #### [c] Expliquer en détail l’utilité de la méthode « c » de la classe « detection ». (3 pts)
 
@@ -104,7 +104,7 @@ public static boolean c() {
     }
 ```
 
-Comme la méthode  `a()` elle essaie d’écrire des fichiers à endroits interdit sans être root pour vérifier si le device est root ou pas. C’est encore une façon de vérifier cela. 
+Comme la méthode  `a()` elle essaie d’écrire des fichiers à endroits interdit sans être root pour vérifier si le device est root ou pas. C’est encore une façon de vérifier cela.
 
 #### [d] Expliquer en détail l’utilité de la méthode « d » de la classe « detection ». (3 pts)
 
@@ -114,7 +114,7 @@ public static boolean d(Context context) {
 }
 ```
 
-L’application verifie que le flag 2 est activé, le flag 2 est celui la : https://developer.android.com/reference/android/content/pm/ApplicationInfo#FLAG_DEBUGGABLE le flag debug, donc elle vérifie que le débug est activé ou pas. 
+L’application verifie que le flag 2 est activé, le flag 2 est celui la : https://developer.android.com/reference/android/content/pm/ApplicationInfo#FLAG_DEBUGGABLE le flag debug, donc elle vérifie que le débug est activé ou pas.
 
 #### [e] Expliquer d’une manière précise ce que vous allez faire pour contourner ce mécanisme de protection de l’application. (code à modifier dans l’application) (3 pts)
 
@@ -136,7 +136,11 @@ public void onCreate(Bundle bundle) {
 
 #### [a] Installer l’application « SOS-Lab.apk » sur l’émulateur (détails de la manipulation) (2 pt)
 
-#### [b] Challenge 1 : Changer la valeur de la variable 'value' de la classe chall01 à 1 (détailler la manipulation pour obtenir le résultat final). 1 pts)
+Une fois le code modifié dans la classe de detection (on modifie le fichier smali), on va utiliser `apktool b <directory_modifiee> -o <new_APK_name>` afin de build notre APK modifié. Une fois modifié on doit signer ce nouvel APK avec le debug keystore du android SDK, pour cela on utilise jarsigner. On fait la commande `jarsigner-verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore
+<Android_SDK_path>/debug.keystore -storepass android <new_APK_name> androiddebugkey`. Voilà on a notre APK signé, on peut maintenant l'installer en utilisant la commande `adb install <new_APK_file>`
+
+
+#### [b] Challenge 1 : Changer la valeur de la variable 'value' de la classe chall01 à 1 (détailler la manipulation pour obtenir le résultat final). (1 pts)
 
 #### [c] Challenge 2 : Exécuter la méthode chall02() de la classe MainActivity (détailler la manipulation pour obtenir le résultat final). (3 pts)
 
