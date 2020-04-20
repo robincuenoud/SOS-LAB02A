@@ -152,7 +152,25 @@ Voilà on a notre APK signé, on peut maintenant l'installer en utilisant la com
 
 On lance `frida-ps -U` on voit ch.heig.lab (le nom du package) , donc on peut commencer à debug remotely ce process avec frida grâce à `frida -U ch.heig.lab` 
 
+Comme snippet javascript j’ai écrit : 
 
+```javascript
+Java.perform(function () {
+  console.log("Starting hooks chall0...");
+  var activity  = Java.use("ch.heig.lab.chall01");
+  activity.getValue.overload().implementation = function() {
+  return 1;
+  }
+  console.log("Hooks installed.");
+});
+
+```
+
+Le code overload juste l’implémentation de la méthode getValue de chall0. 
+
+
+
+![image-20200420181345665](image_sos/chall0)
 
 #### [c] Challenge 2 : Exécuter la méthode chall02() de la classe MainActivity (détailler la manipulation pour obtenir le résultat final). (3 pts)
 
